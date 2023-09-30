@@ -78,14 +78,17 @@
 
       nameElement.classList.remove("error");
       textareaElement.classList.remove("error");
-      if (nameElement.value === ""){
-        nameElement.classList.add("error");
-        return;
-      };
-      if (textareaElement.value === ""){
-        textareaElement.classList.add("error");
-        return;
-      };
+      if (nameElement.value === "" && textareaElement.value === ""){
+       nameElement.classList.add("error");
+       textareaElement.classList.add("error");
+       return
+     } else if (nameElement.value === "") {
+       nameElement.classList.add("error");
+       return
+     } else if (textareaElement.value === "") {
+       textareaElement.classList.add("error");
+       return
+     }
 
       const oldCommentElement = CommentElement.innerHTML;
       CommentElement.innerHTML = oldCommentElement +
