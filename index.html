@@ -23,7 +23,7 @@
   </body>
   <style>
     .error {
-      background-color: rgb(221, 87, 87);
+      background-color: red;
     }
     
   </style>
@@ -105,6 +105,8 @@
           comment.isLiked = false;
           comment.isLike--;
         }
+
+        
         
       renderComments(); // После обновления лайков перерисовываем комментарии
         }
@@ -119,14 +121,19 @@
     addCommentButton.addEventListener("click", () => {
       nameInput.classList.remove("error");
       textInput.classList.remove("error");
-      if (nameInput.value === "") {
+      if (nameInput.value === "" && textInput.value === ""){
         nameInput.classList.add("error");
-        return;
-      }
-      if (textInput.value === "") {
         textInput.classList.add("error");
-        return;
-      }
+        return
+       } else if (nameInput.value === ""){
+        nameInput.classList.add("error");
+        return
+        } else if (textInput.value === ""){
+        textInput.classList.add("error");
+        return
+        }
+    
+
         comments.push({
         name: nameInput.value
         .replaceAll("<", "&lt;")
@@ -141,8 +148,8 @@
       
       
       renderComments();
-        nameInput.value = ""
-        textInput.value = ""
+        nameInput.value = "";
+        textInput.value = "";
     });
   
   </script>
