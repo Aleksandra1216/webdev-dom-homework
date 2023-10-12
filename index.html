@@ -34,8 +34,27 @@
     const addComment = document.getElementById("list");
     const nameInput = document.getElementById("name-input");
     const textInput = document.getElementById("text-input");
-    
-    const comments = [
+
+    const fetchPromise =fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
+        method:"GET",
+      });
+
+    fetchPromise.then((response) => {
+      const jsonPromise = response.json();
+
+      jsonPromise.then((responseData) => {
+        console.log(responseData);
+
+      let comments = responseData.comments;
+       renderComments();
+      });
+    });
+
+    //commentButton.addEventListener('click1', => {
+      
+    //})
+
+    let comments = [
       {
         name: "Глеб Фокмн",
         date: "12.02.22 12:18",
@@ -49,7 +68,7 @@
         text: "Мне нравится как оформлена эта страница! ❤",
         isLike: "75",
         isLiked: false,
-      },
+      }
     ];
 
     const getCurrentDate  = () => {
