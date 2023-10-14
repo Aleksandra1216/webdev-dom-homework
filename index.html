@@ -35,50 +35,57 @@
     const nameInput = document.getElementById("name-input");
     const textInput = document.getElementById("text-input");
 
-    const fetchPromise =fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
-        method:"GET",
-      });
-
-    fetchPromise.then((response) => {
-      const jsonPromise = response.json();
-
-      jsonPromise.then((responseData) => {
-        console.log(responseData);
-
-      let comments = responseData.comments;
-       renderComments();
-      });
-    });
-
-    //commentButton.addEventListener('click1', => {
-      
-    //})
-
     let comments = [
-      {
-        name: "Глеб Фокмн",
-        date: "12.02.22 12:18",
-        text: "Это будет первый комментарий на этой странице",
-        isLike: "3",
-        isLiked: false,
-      },
-      {
-        name: "Варвара",
-        date: "13.02.22 19:22",
-        text: "Мне нравится как оформлена эта страница! ❤",
-        isLike: "75",
-        isLiked: false,
-      }
+      //{
+      //  name: "Глеб Фокин",
+      //  date: "12.02.22 12:18",
+      //  text: "Это будет первый комментарий на этой странице",
+      //  isLike: "3",
+      //  isLiked: false,
+      //},
+      //{
+      //  name: "Варвара",
+      //  date: "13.02.22 19:22",
+      //  text: "Мне нравится как оформлена эта страница! ❤",
+      //  isLike: "75",
+      //  isLiked: false,
+      //}
     ];
 
+    const doFetchComments = () => {
+      fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
+        method:"GET",
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        comments=responseData.comments;
+        renderComments();
+        //const commentsData = responseData.comments.map((comments) => {
+        //  return{
+        //  name: comments.name,
+        //  text: comments.date,
+        //  date: comment.date,
+        //  isLike:0,
+         // isLiked: false ,
+         // }
+        })
+      };
+    
+   
     const getCurrentDate  = () => {
-      const currentDate = new Date().toLocaleDateString('ru-RU', {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false}).replace(',','');
+      const currentDate = new Date().toLocaleDateString('ru-RU', {
+        year: '2-digit', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        hour12: false,
+      }).replace(',','');
       return currentDate;
-    }
+    };
 
     const renderComments = () => {
-      const commentsHtml = comments
-      .map((comment, index) => {
+      const commentsHtml = comments.map((comment, index) => {
         return `<li class="comment">
           <div class="comment-header">
             <div>${comment.name}</div>
@@ -98,9 +105,7 @@
         </li>`
        
       }).join('');
-      
-      
-      addComment.innerHTML = commentsHtml;
+       addComment.innerHTML = commentsHtml;
       
     const commentsElements = document.querySelectorAll(".comment-text");
     for (const commentElement of commentsElements) {
@@ -114,6 +119,8 @@
       });
     }
    
+    //кнопка лайка
+    
     const likeButtons = document.querySelectorAll(".like-button");
     for (const likeButton of likeButtons) {
       likeButton.addEventListener("click", () =>{
@@ -132,6 +139,8 @@
       });  
     }
     };
+
+    
     renderComments();
     
     
@@ -141,29 +150,34 @@
       if (nameInput.value === "" && textInput.value === ""){
         nameInput.classList.add("error");
         textInput.classList.add("error");
-        return
+        return;
        } else if (nameInput.value === ""){
         nameInput.classList.add("error");
-        return
+        return;
         } else if (textInput.value === ""){
         textInput.classList.add("error");
-        return
+        return;
         }
-    
 
-        comments.push({
+        
+        fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
+        method:"POST",
+        body: JSON.stringify( {
         name: nameInput.value.replaceAll("<", "&lt").replaceAll(">", "&gt"),
-        date: getCurrentDate(),
         text: textInput.value.replaceAll("<", "&lt").replaceAll(">", "&gt"),
-        isLike: 0,
-        isLiked: false,
-      });
+        }),
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        comments.push(responseData.comments);
+        renderComments();
+    });
       
-      
-      renderComments();
+
         nameInput.value = "";
         textInput.value = "";
     });
-  
+
+    doFetchComments();
   </script>
 </html>
