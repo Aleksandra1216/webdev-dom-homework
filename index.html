@@ -41,7 +41,7 @@
   let comments = [];
 
   function getComments() {
-    fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
+    return fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
       method: "GET",
     })
       .then((response) => response.json())
@@ -57,7 +57,10 @@
         });
         comments = appComments;
         renderComments();
-      });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
   getComments();
 
@@ -116,6 +119,7 @@
       });
     }
   };
+  
 
   addCommentButton.addEventListener("click", () => {
     nameInput.classList.remove("error");
@@ -131,28 +135,58 @@
       textInput.classList.add("error");
       return;
     }
+  
+  
+
+
+    const startAt = Date.now();
+    console.log('Начинаем делать запрос');
+    addCommentButton.disabled = true;
+    addCommentButton.textContent = 'Элемент добавляется...';
 
     fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
       method: "POST",
       body: JSON.stringify({
-        name: nameInput.value.replaceAll("<", "<").replaceAll(">", ">"),
-        text: textInput.value.replaceAll("<", "<").replaceAll(">", ">"),
+        name: nameInput.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;"),
+        date: currentDate,
+        text: textInput.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("QUOTE_BEGIN", "<div class='comment-quote'><b>")
+         .replaceAll("QUOTE_END", "</b></div>"),
       }),
     })
-      .then((response) => response.json())
-      .then((responseData) => {
-        comments = responseData.comments;
-        //comments.push(responseData.comment);
-        
-      })
-      .then(() =>{
-          getComments();
-        });
-
+    .then((response) => {
+      console.log("Время:" + (Date.now() - startAt));
+      return response;
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      console.log("Время:" + (Date.now() - startAt));
+      return response;
+    })
+    .then(() => {
+      return getComments();
+    })
+    
+    .then(() => {
+    addCommentButton.disabled = false;
+    addCommentButton.textContent = 'Добавить';
+    })
+      
+        getComments();
     nameInput.value = "";
     textInput.value = "";
   });
-
+  
 
 </script>
 </html>
