@@ -27,65 +27,43 @@
     };
   </style>
 
-  <script>
-    "use strict";
-    // Код писать здесь
-    const addCommentButton = document.getElementById("comment-button");
-    const addComment = document.getElementById("list");
-    const nameInput = document.getElementById("name-input");
-    const textInput = document.getElementById("text-input");
 
-    let comments = [
-      //{
-      //  name: "Глеб Фокин",
-      //  date: "12.02.22 12:18",
-      //  text: "Это будет первый комментарий на этой странице",
-      //  isLike: "3",
-      //  isLiked: false,
-      //},
-      //{
-      //  name: "Варвара",
-      //  date: "13.02.22 19:22",
-      //  text: "Мне нравится как оформлена эта страница! ❤",
-      //  isLike: "75",
-      //  isLiked: false,
-      //}
-    ];
+<script>
+  "use strict";
+  // Код писать здесь
+  const addCommentButton = document.getElementById("comment-button");
+  const addComment = document.getElementById("list");
+  const nameInput = document.getElementById("name-input");
+  const textInput = document.getElementById("text-input");
+  const currentDate = new Date().toLocaleDateString('ru-RU', {year: '2-digit', month: '2-digit',  day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false,
+      }).replace(',','');
 
-    const doFetchComments = () => {
-      fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
-        method:"GET",
-      })
+  let comments = [];
+
+  function getComments() {
+    fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
+      method: "GET",
+    })
       .then((response) => response.json())
       .then((responseData) => {
-        comments=responseData.comments;
+        const appComments = responseData.comments.map((comment) => {
+          return {
+            name: comment.author.name,
+            text: comment.text,
+            date: currentDate,
+            isLike: comment.likes,
+            isLiked: false,
+          };
+        });
+        comments = appComments;
         renderComments();
-        //const commentsData = responseData.comments.map((comments) => {
-        //  return{
-        //  name: comments.name,
-        //  text: comments.date,
-        //  date: comment.date,
-        //  isLike:0,
-         // isLiked: false ,
-         // }
-        })
-      };
-    
-   
-    const getCurrentDate  = () => {
-      const currentDate = new Date().toLocaleDateString('ru-RU', {
-        year: '2-digit', 
-        month: '2-digit', 
-        day: '2-digit', 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        hour12: false,
-      }).replace(',','');
-      return currentDate;
-    };
+      });
+  }
+  getComments();
 
-    const renderComments = () => {
-      const commentsHtml = comments.map((comment, index) => {
+  const renderComments = () => {
+    const commentsHtml = comments
+      .map((comment, index) => {
         return `<li class="comment">
           <div class="comment-header">
             <div>${comment.name}</div>
@@ -99,14 +77,16 @@
           <div class="comment-footer">
             <div class="likes">
               <span class="likes-counter">${comment.isLike}</span>
-              <button class="like-button ${comment.isLiked ? '-active-like' : ''}" data-index="${index}"></button>
+              <button class="like-button ${
+                comment.isLiked ? "-active-like" : ""
+              }" data-index="${index}"></button>
             </div>
           </div>
-        </li>`
-       
-      }).join('');
-       addComment.innerHTML = commentsHtml;
-      
+        </li>`;
+      })
+      .join("");
+    addComment.innerHTML = commentsHtml;
+
     const commentsElements = document.querySelectorAll(".comment-text");
     for (const commentElement of commentsElements) {
       commentElement.addEventListener("click", () => {
@@ -114,70 +94,65 @@
         if (index !== null) {
           const comment = comments[index];
           textInput.value = `> ${comment.name} : ${comment.text}`;
-        renderComments();
         }
       });
     }
-   
-    //кнопка лайка
-    
+
     const likeButtons = document.querySelectorAll(".like-button");
     for (const likeButton of likeButtons) {
-      likeButton.addEventListener("click", () =>{
+      likeButton.addEventListener("click", () => {
         const index = likeButton.dataset.index;
-      if (index !== null) {
-        const comment = comments[index];
-        if (!comment.isLiked) {
-          comment.isLiked = true;
-          comment.isLike++;
-        } else {
-          comment.isLiked = false;
-          comment.isLike--;
+        if (index !== null) {
+          const comment = comments[index];
+          if (!comment.isLiked) {
+            comment.isLiked = true;
+            comment.isLike++;
+          } else {
+            comment.isLiked = false;
+            comment.isLike--;
+          }
+          renderComments();
         }
-        renderComments(); 
-        }
-      });  
+      });
     }
-    };
+  };
 
-    
-    renderComments();
-    
-    
-    addCommentButton.addEventListener("click", () => {
-      nameInput.classList.remove("error");
-      textInput.classList.remove("error");
-      if (nameInput.value === "" && textInput.value === ""){
-        nameInput.classList.add("error");
-        textInput.classList.add("error");
-        return;
-       } else if (nameInput.value === ""){
-        nameInput.classList.add("error");
-        return;
-        } else if (textInput.value === ""){
-        textInput.classList.add("error");
-        return;
-        }
+  addCommentButton.addEventListener("click", () => {
+    nameInput.classList.remove("error");
+    textInput.classList.remove("error");
+    if (nameInput.value === "" && textInput.value === "") {
+      nameInput.classList.add("error");
+      textInput.classList.add("error");
+      return;
+    } else if (nameInput.value === "") {
+      nameInput.classList.add("error");
+      return;
+    } else if (textInput.value === "") {
+      textInput.classList.add("error");
+      return;
+    }
 
-        
-        fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
-        method:"POST",
-        body: JSON.stringify( {
-        name: nameInput.value.replaceAll("<", "&lt").replaceAll(">", "&gt"),
-        text: textInput.value.replaceAll("<", "&lt").replaceAll(">", "&gt"),
-        }),
-      })
+    fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
+      method: "POST",
+      body: JSON.stringify({
+        name: nameInput.value.replaceAll("<", "<").replaceAll(">", ">"),
+        text: textInput.value.replaceAll("<", "<").replaceAll(">", ">"),
+      }),
+    })
       .then((response) => response.json())
-      .then((responseData) => {
-        comments.push(responseData.comments);
-        renderComments();
-    });
-      
+      //.then((responseData) => {
+        //comments = responseData.comments;
+        //comments.push(responseData.comment);
+        
+      //})
+      .then(() =>{
+          getComments();
+        });
 
-        nameInput.value = "";
-        textInput.value = "";
-    });
+    nameInput.value = "";
+    textInput.value = "";
+  });
 
-    doFetchComments();
-  </script>
+  
+</script>
 </html>
