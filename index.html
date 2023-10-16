@@ -140,11 +140,11 @@
       }),
     })
       .then((response) => response.json())
-      //.then((responseData) => {
-        //comments = responseData.comments;
+      .then((responseData) => {
+        comments = responseData.comments;
         //comments.push(responseData.comment);
         
-      //})
+      })
       .then(() =>{
           getComments();
         });
@@ -153,6 +153,6 @@
     textInput.value = "";
   });
 
-  
+
 </script>
 </html>
