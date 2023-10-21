@@ -8,7 +8,9 @@
   </head>
   <body>
     <div class="container">
-      <div class="list-loader"> Комментарии загружаются...</div> 
+      <div class="comments-progress"> 
+        <p>Комментарии загружаются...</p> 
+      </div> 
       <ul id="list" class="comments">
       </ul>
       <!--JS-->
@@ -27,9 +29,11 @@
       background-color: red;
     };
 
+    .comments-progress {
+  display: none;
+} 
+
   </style>
-
-
 <script>
   "use strict";
   // Код писать здесь
@@ -39,11 +43,13 @@
   const textInput = document.getElementById("text-input");
   const currentDate = new Date().toLocaleDateString('ru-RU', {year: '2-digit', month: '2-digit',  day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false,
       }).replace(',','');
-
+  const addFormProgressElement=document.querySelector("add-form-progress");
 
   let comments = [];
 
   function getComments() {
+    const commentsProgress = document.querySelector('.comments-progress');
+  commentsProgress.style.display = 'block';
     
     return fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
       method: "GET",
@@ -62,10 +68,11 @@
         });
         comments = appComments;
         renderComments();
-      
+        commentsProgress.style.display = 'none';
   })
 }
 getComments();
+
 
   const renderComments = () => {
     const commentsHtml = comments
@@ -121,7 +128,8 @@ getComments();
         }
       });
     }
-  };
+  }
+  
   
 
   addCommentButton.addEventListener("click", () => {
