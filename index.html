@@ -54,15 +54,7 @@
     return fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
       method: "GET",
     })
-    .then((response) => {
-      if (response.status === 500) {
-        throw new Error("Ошибка сервера");
-      } if (response.status === 400){
-        throw new Error("Неверный запрос");
-      }
-      return response.json();
-    })
-      //.then((response) => response.json())
+      .then((response) => response.json())
       .then((responseData) => {
         const appComments = responseData.comments.map((comment) => {
           return {
@@ -221,6 +213,9 @@ getComments();
       if (error.message === "Плохой запрос"){
         alert("имя и комментарий должны быть не короче 3 символов"); 
         return
+      }else if (error.message === "Сервер сломался") {
+        alert("кажется, у вас сломался интернет, попробуйте позже");
+        return;
       }
       alert("кажется ,у вас сломался интернет, попробуйте позже")
       console.warn(error);
