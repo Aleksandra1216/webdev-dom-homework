@@ -54,7 +54,15 @@
     return fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
       method: "GET",
     })
-      .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 500) {
+        throw new Error("Ошибка сервера");
+      } if (response.status === 400){
+        throw new Error("Неверный запрос");
+      }
+      return response.json();
+    })
+      //.then((response) => response.json())
       .then((responseData) => {
         const appComments = responseData.comments.map((comment) => {
           return {
@@ -169,13 +177,28 @@ getComments();
         .replaceAll('"', "&quot;")
         .replaceAll("QUOTE_BEGIN", "<div class='comment-quote'><b>")
          .replaceAll("QUOTE_END", "</b></div>"),
+         forceError: true,
       }),
     })
+    // .then((response) => {
+    //   console.log("Время:" + (Date.now() - startAt));
+    //   return response;
+    // })
+    // .then((response) => {
+    //   console.log(response);
+    //   if(response.status ===201){
+    //     return response.json();
+    //   } else{
+    //     //throw new Error('Сервер упал');
+    //     return Promise.reject("Сервер упал")
+    //   }
+    // })
     .then((response) => {
-      console.log("Время:" + (Date.now() - startAt));
-      return response;
-    })
-    .then((response) => {
+      if (response.status === 500) {
+        throw new Error("Сервер сломался")
+      } else if (response.status === 400){
+        throw new Error("Плохой запрос")
+      }
       return response.json();
     })
     .then((response) => {
@@ -189,11 +212,22 @@ getComments();
     .then(() => {
     addCommentButton.disabled = false;
     addCommentButton.textContent = 'Добавить';
+    nameInput.value = "";
+    textInput.value = "";
+    })
+    .catch((error) => {
+      addCommentButton.disabled = false;
+      addCommentButton.textContent = 'Добавить';
+      if (error.message === "Плохой запрос"){
+        alert("имя и комментарий должны быть не короче 3 символов"); 
+        return
+      }
+      alert("кажется ,у вас сломался интернет, попробуйте позже")
+      console.warn(error);
     })
       
         getComments();
-    nameInput.value = "";
-    textInput.value = "";
+    
   });
   
 
