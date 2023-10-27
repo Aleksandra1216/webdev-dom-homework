@@ -5,89 +5,33 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-
   <body>
     <div class="container">
-      <ul class="comments" id="add-comment">
-        <li class="comment">
-          <div class="comment-header">
-            <div>Глеб Фокин</div>
-            <div>12.02.22 12:18 </div>
-          </div>
-          <div class="comment-body">
-            <div class="comment-text">
-              Это будет первый комментарий на этой странице
-            </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">3</span>
-              <button class="like-button"></button>
-            </div>
-          </div>
-        </li>
-        <li class="comment">
-          <div class="comment-header">
-            <div>Варвара Н.</div>
-            <div>13.02.22 19:22</div>
-          </div>
-          <div class="comment-body">
-            <div class="comment-text">
-              Мне нравится как оформлена эта страница! ❤
-            </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">75</span>
-              <button class="like-button -active-like"></button>
-            </div>
-          </div>
-        </li>
+      <div class="comments-progress"> 
+        <p>Комментарии загружаются...</p> 
+      </div> 
+      <ul id="list" class="comments">
       </ul>
+      <!--JS-->
       <div class="add-form">
-        <input type="text" class="add-form-name"
-          placeholder="Введите ваше имя"  id="form-name"
-        />
-        <textarea type="textarea" class="add-form-text"
-          placeholder="Введите ваш коментарий" 
-          rows="4" id="form-textarea"
+        <input id="name-input" type="text" class="add-form-name" placeholder="Введите ваше имя" />
+        <textarea id="text-input" type="textarea" class="add-form-text" placeholder="Введите ваш коментарий" rows="4"
         ></textarea>
         <div class="add-form-row">
-          <button id="add-button" class="add-form-button">Написать</button>
+          <button id="comment-button" class="add-form-button">Написать</button>
         </div>
       </div>
     </div>
+   
   </body>
+  <style>
+    .error {
+      background-color: red;
+    };
+    .comments-progress {
+  display: none;
+} 
+  </style>
+  <script type="module" src="main.js"></script>
 
-  <script>
-    "use strict";
-    // Код писать здесь
-    const buttonElement = document.getElementById('add-button');
-    const CommentElement = document.getElementById('add-comment');
-    const nameElement = document.getElementById('form-name');
-    const textareaElement = document.getElementById('form-textarea');
-    const currentDate = new Date().toLocaleDateString('ru-RU', {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false}).replace(',','')
-
-    buttonElement.addEventListener('click', () => {
-      const oldCommentElement = CommentElement.innerHTML;
-      CommentElement.innerHTML = oldCommentElement +
-       `<li class="comment">
-        <div class="comment-header">
-            <div>${nameElement.value}</div>
-            <div> ${currentDate}</div>
-          </div>
-          <div class="comment-body">
-            <div class="comment-text">
-              ${textareaElement.value}
-            </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">0</span>
-              <button class="like-button -active-like"></button>
-            </div> 
-            </div/>
-            </li>`
-    })
-  </script>
 </html>
