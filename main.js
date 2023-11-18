@@ -1,4 +1,6 @@
-  // Код писать здесь
+
+
+// Код писать здесь
   const addCommentButton = document.getElementById("comment-button");
   const addComment = document.getElementById("list");
   const nameInput = document.getElementById("name-input");
