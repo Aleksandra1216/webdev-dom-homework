@@ -1,3 +1,4 @@
+
 export function getComments() {
 //     const commentsProgress = document.querySelector('.comments-progress');
 //   commentsProgress.style.display = 'block';
@@ -14,6 +15,7 @@ export function getComments() {
       return response.json();
     })
 };
+
 
 
 export function postApi ({ text, name, date }) {

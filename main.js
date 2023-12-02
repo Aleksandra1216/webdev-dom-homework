@@ -190,8 +190,6 @@ const addCommentButton = document.getElementById("comment-button");
       alert("кажется ,у вас сломался интернет, попробуйте позже")
       console.warn(error);
     })
-      
         // getComments();
-    
   });
   
