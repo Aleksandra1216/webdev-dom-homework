@@ -1,8 +1,6 @@
-import { addCommentFetch, getComments } from "./api.js";
+import { getComments, postApi } from "./api.js";
 
-
-// Код писать здесь
-  const addCommentButton = document.getElementById("comment-button");
+const addCommentButton = document.getElementById("comment-button");
   const addComment = document.getElementById("list");
   const nameInput = document.getElementById("name-input");
   const textInput = document.getElementById("text-input");
@@ -15,30 +13,40 @@ import { addCommentFetch, getComments } from "./api.js";
   // function getComments() {
   //   const commentsProgress = document.querySelector('.comments-progress');
   // commentsProgress.style.display = 'block';
-  
-    getComments();
-  
-      // .then((response) => response.json())
-      // .then((response) => response.json())
-//       .then((responseData) => {
-//         const appComments = responseData.comments.map((comment) => {
-//           return {
-//             name: comment.author.name,
-//             text: comment.text,
-//              date: comment.date,
-//              //currentDate,
-//             isLike: comment.likes,
-//             isLiked: false,
-//           };
-//         });
-//         comments = appComments;
-//         renderComments();
-//         commentsProgress.style.display = 'none';
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-// }
+    
+  //   return fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
+  //     method: "GET",
+  //   })
+  //   .then((response) => {
+  //     if (response.status === 500) {
+  //       throw new Error("Ошибка сервера");
+  //     } if (response.status === 400){
+  //       throw new Error("Неверный запрос");
+  //     }
+  //     return response.json();
+  //   })
+     
+     getComments()
+      .then((responseData) => {
+        const appComments = responseData.comments.map((comment) => {
+          return {
+            name: comment.author.name,
+            text: comment.text,
+             date: currentDate,
+            //date: new Date (comment.date),
+            isLike: comment.likes,
+            isLiked: false,
+          };
+        });
+        comments = appComments;
+        renderComments();
+        // commentsProgress.style.display = 'none';
+  })
+  .catch((error) => {
+    console(error);
+  });
+
+
 // getComments();
 
   const renderComments = () => {
@@ -115,14 +123,11 @@ import { addCommentFetch, getComments } from "./api.js";
       return;
     }
 
-
     const startAt = Date.now();
     console.log('Начинаем делать запрос');
     addCommentButton.disabled = true;
-    addCommentButton.textContent = 'Комментарий добавляется...';
-  });
-
-
+    addCommentButton.textContent = 'Элемент добавляется...';
+    
     // fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
     //   method: "POST",
     //   body: JSON.stringify({
@@ -142,7 +147,7 @@ import { addCommentFetch, getComments } from "./api.js";
     //      forceError: true,
     //   }),
     // })
-
+   
     // .then((response) => {
     //   if (response.status === 500) {
     //     throw new Error("Сервер сломался")
@@ -151,52 +156,40 @@ import { addCommentFetch, getComments } from "./api.js";
     //   }
     //   return response.json();
     // })
+    const text = textInput.value;
+    const name = nameInput.value;
+    const date = currentDate;
 
-    addCommentFetch();
-    // .then((response) => {
-    //   console.log("Время:" + (Date.now() - startAt));
-    //   return response;
-    // })
-    // .then(() => {
-    //   //return getComments();
-    //   const newComment = {
-    //       name: nameInput.value,
-    //       text:textInput.value,
-    //        date: currentDate.date,
-    //        //currentDate,
-    //       isLike: 0,
-    //       isLiked: false,
-    //     };
-
-    //     comments.push(newComment);
-    //     renderComments();
-
-    //     nameInput.value= "";
-    //     textInput.value = "";
-    //     nameInput.disabled = false;
-    //     textInput.disabled = false;
-    //     addCommentButton.disabled = false;
-    //     addCommentButton.textContent ='Добавить';
-    //   })
-    // .then(() => {
-    // addCommentButton.disabled = false;
-    // addCommentButton.textContent = 'Добавить';
-    // nameInput.value = "";
-    // textInput.value = "";
-    // })
-  //   .catch((error) => {
-  //     addCommentButton.disabled = false;
-  //     addCommentButton.textContent = 'Добавить';
-  //     if (error.message === "Плохой запрос"){
-  //       alert("имя и комментарий должны быть не короче 3 символов"); 
-  //       return
-  //     }else if (error.message === "Сервер сломался") {
-  //       alert("кажется, у вас сломался интернет, попробуйте позже");
-  //       return;
-  //     }
-  //     alert("кажется ,у вас сломался интернет, попробуйте позже")
-  //     console.warn(error);
-  //   })
+    postApi({ text, name, date })
+    .then((response) => {
+      console.log("Время:" + (Date.now() - startAt));
+      return response;
+    })
+    .then(() => {
+      return getComments();
+    })
+    
+    .then(() => {
+    addCommentButton.disabled = false;
+    addCommentButton.textContent = 'Добавить';
+    nameInput.value = "";
+    textInput.value = "";
+    })
+    .catch((error) => {
+      addCommentButton.disabled = false;
+      addCommentButton.textContent = 'Добавить';
+      if (error.message === "Плохой запрос"){
+        alert("имя и комментарий должны быть не короче 3 символов"); 
+        return
+      }else if (error.message === "Сервер сломался") {
+        alert("кажется, у вас сломался интернет, попробуйте позже");
+        return;
+      }
+      alert("кажется ,у вас сломался интернет, попробуйте позже")
+      console.warn(error);
+    })
       
-  //       getComments();
-  // })
+        // getComments();
+    
+  });
+  
