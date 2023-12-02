@@ -1,6 +1,6 @@
 export function getComments() {
-    const commentsProgress = document.querySelector('.comments-progress');
-  commentsProgress.style.display = 'block';
+//     const commentsProgress = document.querySelector('.comments-progress');
+//   commentsProgress.style.display = 'block';
     
     return fetch("https://wedev-api.sky.pro/api/v1/Aleksandra1216/comments", {
       method: "GET",

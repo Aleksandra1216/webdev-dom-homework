@@ -1,12 +1,13 @@
 import { getComments, postApi } from "./api.js";
 
+
 const addCommentButton = document.getElementById("comment-button");
   const addComment = document.getElementById("list");
   const nameInput = document.getElementById("name-input");
   const textInput = document.getElementById("text-input");
   const currentDate = new Date().toLocaleDateString('ru-RU', {year: '2-digit', month: '2-digit',  day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false,
       }).replace(',','');
-  const addFormProgressElement=document.querySelector("add-form-progress");
+  // const addFormProgressElement=document.querySelector("add-form-progress");
   
   let comments = [];
 
@@ -43,7 +44,7 @@ const addCommentButton = document.getElementById("comment-button");
         // commentsProgress.style.display = 'none';
   })
   .catch((error) => {
-    console(error);
+    console.log(error);
   });
 
 
@@ -106,6 +107,7 @@ const addCommentButton = document.getElementById("comment-button");
       });
     }
   }
+
   
   
   addCommentButton.addEventListener("click", () => {
