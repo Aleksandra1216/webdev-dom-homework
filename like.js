@@ -1,25 +1,16 @@
+import { toggleLike, token } from "./api.js";
+import { comments, getRenderComments } from "./main.js";
 
-
-export function likeEventButton () {
-    const likeButtons = document.querySelectorAll(".like-button");
-  for (const likeButton of likeButtons) {
-    likeButton.addEventListener("click", () =>{
-    //event.stopPropagation();
-      const index = likeButton.dataset.index;
-    if (index !== null) {
-      const comment = comments[index];
-      if (!comment.isLiked) {
-        comment.isLiked = true;
-        comment.likes++;
-      } else {
-        comment.isLiked = false;
-        comment.likes--;
-      }
-
-    renderComments();
-
-      }
-    });  
-  }
+export function addLikeEventListeners() {
+  const likeButtons = document.querySelectorAll(".like-button");
+  likeButtons.forEach((likeButton, index) => {
+    likeButton.addEventListener("click", (event) => {
+      // if (!token) return
+      event.stopPropagation();
+      toggleLike({ id:comments[index].id }).then(() => {
+        getRenderComments();
+      })
+    });
+  });
 }
-likeEventButton ();
+addLikeEventListeners();
