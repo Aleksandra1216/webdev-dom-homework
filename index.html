@@ -1,4 +1,3 @@
- 
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,13 +7,10 @@
   </head>
   <body>
     <div class="container">
-      <div class="comments-progress"> 
-        <p>Комментарии загружаются...</p> 
-      </div> 
-      <ul id="list" class="comments">
-      </ul>
-      <!--JS-->
-      <div class="add-form">
+      <div id="loader-comment">Комментарии загружаются...</div>
+      <ul id="list" class="comments"></ul>
+      <div id="add-loader-comment">Комментарий добавляется...</div>
+      <div class="add-form" id="add-form">
         <input id="name-input" type="text" class="add-form-name" placeholder="Введите ваше имя" />
         <textarea id="text-input" type="textarea" class="add-form-text" placeholder="Введите ваш коментарий" rows="4"
         ></textarea>
@@ -23,16 +19,17 @@
         </div>
       </div>
     </div>
-   
+    <script type="module" src="./main.js"></script>
   </body>
   <style>
     .error {
       background-color: red;
     };
-    comments-progress {
-  display: none;
-} 
-  </style>
-  
-  <script type="module" src="main.js"></script>
-  </html>
+    .comment_progress{
+      display: none;
+    }
+    
+    .quote {
+      box-sizing: border-box;
+      background-color: white;
+    }
