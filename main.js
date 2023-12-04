@@ -1,8 +1,6 @@
 import { getComments } from "./api.js";
-// import { renderLogin } from "./loginPage.js";
 import { renderComments } from "./renderComments.js";
 
-// const loaderComment = document.getElementById("loader-comment");
 
 const newDate = new Date;
 export const formatedDate = `${newDate.getDate()}.${newDate.getMonth() + 1}.${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}`;

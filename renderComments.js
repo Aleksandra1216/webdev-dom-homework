@@ -58,10 +58,6 @@ export const renderComments = ({ comments }) => {
   const addComment = document.getElementById("list");
 
 
-// убирает строку комент добавляется, если расскоментировать не добавляется новый коммент и форма нового коммента
-  //   document.getElementById("add-loader-comment").style.display = 'none';
-
-
   // Добавляем новый комментарий
 function addCommentForm () {
   if (!token) return
@@ -71,7 +67,6 @@ function addCommentForm () {
   const addLoaderComment = document.getElementById('add-loader-comment');
 
 
-// addLoaderComment.style.display = true; // ??? проверить логику
 
   addCommentButton.addEventListener("click", () => {
 

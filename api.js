@@ -28,7 +28,8 @@ export function getComments() {
        return response.json();
      });
 }
-//передаем текст, дату в качестве аргумента
+
+
 export function postApi({ text }) {
    return fetch(baseURL, {
       method: "POST",
