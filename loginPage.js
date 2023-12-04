@@ -44,6 +44,4 @@ logButtonElement.addEventListener("click", () => {
         getRenderComments();
     })
 });
-
-
 };

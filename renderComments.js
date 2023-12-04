@@ -3,6 +3,7 @@ import { addLikeEventListeners } from "./like.js";
 import { renderLogin } from "./loginPage.js";
 import { formatedDate, getRenderComments } from "./main.js";
 
+
 export const renderComments = ({ comments }) => {
   const appHTML = document.getElementById("app");
   const commentsHtml = comments.map((comment, index) => {
@@ -65,8 +66,6 @@ function addCommentForm () {
   const nameInput = document.getElementById("name-input");
   const textInput = document.getElementById("text-input");
   const addLoaderComment = document.getElementById('add-loader-comment');
-
-
 
   addCommentButton.addEventListener("click", () => {
 

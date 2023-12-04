@@ -73,8 +73,8 @@ export function deleteComment({ id }) {
         });
 }
 
-export function toggleLike({ id }) {
-   return fetch(`"https://wedev-api.sky.pro/api/v2/Aleksandra1216/comments"/${id}/toggle-like`, {
+export function leLike({ id }) {
+   return fetch(`"https://wedev-api.sky.pro/api/v2/Aleksandra1216/comments"/${id}/le-like`, {
       method: "POST",
       headers: {
          Authorization: `Bearer ${token}`,

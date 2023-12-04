@@ -1,7 +1,6 @@
 import { getComments } from "./api.js";
 import { renderComments } from "./renderComments.js";
 
-
 const newDate = new Date;
 export const formatedDate = `${newDate.getDate()}.${newDate.getMonth() + 1}.${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}`;
 
@@ -11,7 +10,6 @@ const date = ({ apiDate }) => {
     + (new Date(apiDate).getMinutes() < 10 ? '0' + new Date(apiDate).getMinutes() : new Date(apiDate).getMinutes()) + ":"
     + (new Date(apiDate).getSeconds() < 10 ? '0' + new Date(apiDate).getSeconds() : new Date(apiDate).getSeconds())
 }
-
 
 export let comments = [];
 
