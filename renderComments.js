@@ -1,6 +1,6 @@
 import { deleteComment, postApi, token, userName } from "./api.js";
 import { addLikeEventListeners } from "./like.js";
-import { renderLogin } from "./login.js";
+import { renderLogin } from "./loginPage.js";
 import { formatedDate, getRenderComments } from "./main.js";
 
 export const renderComments = ({ comments }) => {

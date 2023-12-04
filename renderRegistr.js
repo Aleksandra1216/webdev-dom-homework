@@ -1,5 +1,5 @@
 import { registration, setToken, setUserName, token } from "./api.js";
-import { renderLogin } from "./login.js";
+import { renderLogin } from "./loginPage.js";
 import { getRenderComments } from "./main.js";
 import { renderComments } from "./renderComments.js";
 
@@ -50,5 +50,7 @@ export const renderReg = () => {
         getRenderComments ();
 
         })
-    });
+    })
+
+    renderComments()
 };
