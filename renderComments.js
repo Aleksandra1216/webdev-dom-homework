@@ -70,7 +70,6 @@ function addCommentForm () {
 
   addCommentButton.addEventListener("click", () => {
 
-    //Убираем форму ввода при клике кнопку Написать
   document.getElementById("add-form").style.display = 'none';
   document.getElementById("add-loader-comment").style.display = 'block';
 
@@ -102,8 +101,7 @@ function addCommentForm () {
           getRenderComments({ comments });
           document.getElementById("add-form").style.display = 'flex';
           document.getElementById("add-loader-comment").style.display = 'none';
-          // plusLoaderComment.classList.remove("hidden");
-          nameInput.value = ""
+           nameInput.value = ""
           textInput.value = ""
         })
         .catch((error) => {
@@ -118,7 +116,6 @@ function addCommentForm () {
           else {
             alert("Кажется у вас сломался интернет, попробуйте позже")
           }
-          // TODO: Отправлять в систему сбора ошибок
           console.log(error);
         });
     }

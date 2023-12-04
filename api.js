@@ -41,7 +41,6 @@ export function postApi({ text }) {
         text: text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
 
       }),
-      
       })
       .then((response) => {
           console.log(response);
