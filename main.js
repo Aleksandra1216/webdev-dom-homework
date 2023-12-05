@@ -1,6 +1,8 @@
 import { getComments } from "./api.js";
 import { renderComments } from "./renderComments.js";
 
+
+
 const newDate = new Date;
 export const formatedDate = `${newDate.getDate()}.${newDate.getMonth() + 1}.${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}`;
 
@@ -28,7 +30,9 @@ const appHTML = document.getElementById("app")
         isLiked: comment.isLiked,
       }
     });
+ 
     renderComments({ comments });
   });
 };
 getRenderComments();
+

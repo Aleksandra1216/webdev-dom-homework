@@ -3,7 +3,6 @@ import { addLikeEventListeners } from "./like.js";
 import { renderLogin } from "./loginPage.js";
 import { formatedDate, getRenderComments } from "./main.js";
 
-
 export const renderComments = ({ comments }) => {
   const appHTML = document.getElementById("app");
   const commentsHtml = comments.map((comment, index) => {
@@ -67,6 +66,7 @@ function addCommentForm () {
   const textInput = document.getElementById("text-input");
   const addLoaderComment = document.getElementById('add-loader-comment');
 
+
   addCommentButton.addEventListener("click", () => {
 
   document.getElementById("add-form").style.display = 'none';
@@ -100,7 +100,7 @@ function addCommentForm () {
           getRenderComments({ comments });
           document.getElementById("add-form").style.display = 'flex';
           document.getElementById("add-loader-comment").style.display = 'none';
-           nameInput.value = ""
+          nameInput.value = ""
           textInput.value = ""
         })
         .catch((error) => {
@@ -115,6 +115,7 @@ function addCommentForm () {
           else {
             alert("Кажется у вас сломался интернет, попробуйте позже")
           }
+         
           console.log(error);
         });
     }
@@ -153,4 +154,5 @@ function replayComment () {
 }
 replayComment();
 addLikeEventListeners({ comments });
+// renderComments();
 };

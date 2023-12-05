@@ -1,4 +1,4 @@
-import { leLike, token } from "./api.js";
+import { toggleLike, token } from "./api.js";
 import { comments, getRenderComments } from "./main.js";
 
 export function addLikeEventListeners() {
@@ -6,11 +6,10 @@ export function addLikeEventListeners() {
   likeButtons.forEach((likeButton, index) => {
     likeButton.addEventListener("click", (event) => {
       event.stopPropagation();
-      leLike({ id:comments[index].id }).then(() => {
+      toggleLike({ id:comments[index].id }).then(() => {
         getRenderComments();
       })
     });
   });
 }
-
 addLikeEventListeners();

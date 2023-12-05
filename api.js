@@ -1,5 +1,5 @@
-const baseURL = "https://wedev-api.sky.pro/api/v2/Aleksandra1216/comments"
-const deleteURL =  "https://wedev-api.sky.pro/api/v2/Aleksandra1216/comments"
+const baseURL = "https://wedev-api.sky.pro/api/v2/Aleksandra1216/comments";
+const deleteURL = "https://wedev-api.sky.pro/api/v2/Aleksandra1216/comments/"
 const authorizURL = "https://wedev-api.sky.pro/api/user/login";
 const regURL = "https://wedev-api.sky.pro/api/user";
 
@@ -28,8 +28,7 @@ export function getComments() {
        return response.json();
      });
 }
-
-
+//передаем текст, дату в качестве аргумента
 export function postApi({ text }) {
    return fetch(baseURL, {
       method: "POST",
@@ -41,6 +40,7 @@ export function postApi({ text }) {
         text: text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;"),
 
       }),
+      
       })
       .then((response) => {
           console.log(response);
@@ -73,8 +73,8 @@ export function deleteComment({ id }) {
         });
 }
 
-export function leLike({ id }) {
-   return fetch(`"https://wedev-api.sky.pro/api/v2/Aleksandra1216/comments"/${id}/le-like`, {
+export function toggleLike({ id }) {
+   return fetch(`https://wedev-api.sky.pro/api/v2/Aleksandra1216/comments/${id}/toggle-like`, {
       method: "POST",
       headers: {
          Authorization: `Bearer ${token}`,
