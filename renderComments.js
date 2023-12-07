@@ -1,15 +1,20 @@
 import { deleteComment, postApi, token, userName } from "./api.js";
 import { addLikeEventListeners } from "./like.js";
 import { renderLogin } from "./loginPage.js";
-import { formatedDate, getRenderComments } from "./main.js";
+//import { formatedDate, getRenderComments } from "./main.js";
+import { getRenderComments } from "./main.js";
+import { formatDateToRu, formatDateToUs } from "./lib/formatDate/formatDate.js";
+
 
 export const renderComments = ({ comments }) => {
   const appHTML = document.getElementById("app");
+  const country = "ru";
   const commentsHtml = comments.map((comment, index) => {
     return `<li class="comment">
         <div class="comment-header">
           <div>${comment.name}</div>
-          <div>${comment.date}</div>
+          <div>${country === "ru" ? formatDateToRu(new Date(comment.date)) : formatDateToUs(new Date(comment.date))}</div>
+       
         </div>
         <div class="comment-body"> 
           <div class="comment-text" data-index="${index}">
@@ -21,7 +26,7 @@ export const renderComments = ({ comments }) => {
             <button class="like-button ${comment.isLiked ? 'active-like' : ''}" data-index="${index}"></button>
             <span class="likes-counter">${comment.likes}</span>
           </div>
-        </div>
+          </div>
       </li>`;
   }).join('');
 
@@ -92,7 +97,9 @@ function addCommentForm () {
       postApi({
         text: textInput.value,
         name: nameInput.value,
-        date: formatedDate
+        // date: formatedDate
+        date: country === "ru" ? formatDateToRu(new Date( postApi)) : formatDateToUs(new Date( postApi)),
+        
       }).then(() => {
         return getRenderComments({ comments });
       })
