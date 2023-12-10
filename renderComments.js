@@ -3,17 +3,18 @@ import { addLikeEventListeners } from "./like.js";
 import { renderLogin } from "./loginPage.js";
 //import { formatedDate, getRenderComments } from "./main.js";
 import { getRenderComments } from "./main.js";
-import { formatDateToRu, formatDateToUs } from "./lib/formatDate/formatDate.js";
-
+// import { formatDateToRu, formatDateToUs } from "./lib/formatDate/formatDate.js";
+import { format } from "date-fns";
 
 export const renderComments = ({ comments }) => {
   const appHTML = document.getElementById("app");
   const country = "ru";
   const commentsHtml = comments.map((comment, index) => {
+    const createDate = format(new Date(comment.date), 'dd-MM-yyyy hh:mm');
     return `<li class="comment">
         <div class="comment-header">
           <div>${comment.name}</div>
-          <div>${country === "ru" ? formatDateToRu(new Date(comment.date)) : formatDateToUs(new Date(comment.date))}</div>
+          <div>${createDate}</div>
        
         </div>
         <div class="comment-body"> 
@@ -97,14 +98,14 @@ function addCommentForm () {
       postApi({
         text: textInput.value,
         name: nameInput.value,
-        // date: formatedDate
-        date: country === "ru" ? formatDateToRu(new Date( postApi)) : formatDateToUs(new Date( postApi)),
-        
+        //  date: formatedDate
+        // date: country === "ru" ? formatDateToRu(new Date( postApi)) : formatDateToUs(new Date( postApi)),
+         date: newDate,
       }).then(() => {
         return getRenderComments({ comments });
       })
         .then(() => {
-          getRenderComments({ comments });
+           getRenderComments({ comments });
           document.getElementById("add-form").style.display = 'flex';
           document.getElementById("add-loader-comment").style.display = 'none';
           nameInput.value = ""
@@ -123,7 +124,7 @@ function addCommentForm () {
             alert("Кажется у вас сломался интернет, попробуйте позже")
           }
          
-          console.log(error);
+           console.log(error);
         });
     }
     postTask();
