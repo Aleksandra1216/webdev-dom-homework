@@ -10,7 +10,7 @@ export const renderComments = ({ comments }) => {
   const appHTML = document.getElementById("app");
   const country = "ru";
   const commentsHtml = comments.map((comment, index) => {
-    const createDate = format(new Date(comment.date), 'dd-MM-yyyy hh:mm');
+    const createDate = format(new Date(comment.date), 'dd-MM-yyyy HH:mm');
     return `<li class="comment">
         <div class="comment-header">
           <div>${comment.name}</div>
@@ -83,6 +83,7 @@ function addCommentForm () {
 
     nameInput.classList.remove("error");
     textInput.classList.remove("error");
+
     if (nameInput.value === "") {
       nameInput.classList.add("error");
       return;
@@ -91,6 +92,7 @@ function addCommentForm () {
       textInput.classList.add("error");
       return;
     }
+
     plusLoaderComment.classList.add("hidden");
 
     // Создание нового комментария
@@ -100,7 +102,7 @@ function addCommentForm () {
         name: nameInput.value,
         //  date: formatedDate
         // date: country === "ru" ? formatDateToRu(new Date( postApi)) : formatDateToUs(new Date( postApi)),
-         date: newDate,
+         date: new Date(),
       }).then(() => {
         return getRenderComments({ comments });
       })
@@ -114,6 +116,7 @@ function addCommentForm () {
         .catch((error) => {
           document.getElementById("add-form").style.display = 'flex';
           document.getElementById("add-loader-comment").style.display = 'none';
+          
           if (error.message === "Сервер сломался") {
             alert('Сервер сломался, попробуйте позже');
           }
