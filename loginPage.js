@@ -1,6 +1,7 @@
 import { login, setToken, setUserName, token, userName } from "./api.js"
 import { getRenderComments } from "./main.js";
-// import { renderReg } from "./renderReg.js";
+
+
 
 export const renderLogin = () => {
     const appElement = document.getElementById("app");

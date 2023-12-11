@@ -28,6 +28,8 @@ export function getComments() {
        return response.json();
      });
 }
+
+
 //передаем текст, дату в качестве аргумента
 export function postApi({ text }) {
    return fetch(baseURL, {
@@ -56,6 +58,7 @@ export function postApi({ text }) {
         });
 }
 
+
 export function deleteComment({ id }) {
    return fetch(deleteURL + id, {
       method: "DELETE",
@@ -73,6 +76,7 @@ export function deleteComment({ id }) {
         });
 }
 
+
 export function toggleLike({ id }) {
    return fetch(`https://wedev-api.sky.pro/api/v2/Aleksandra1216/comments/${id}/toggle-like`, {
       method: "POST",
@@ -81,6 +85,7 @@ export function toggleLike({ id }) {
        },
       });
 }
+
 
 export function login({ login, password }) {
    return fetch(authorizURL, {
@@ -98,6 +103,8 @@ export function login({ login, password }) {
       }
    });
 };
+
+
 
 export function registration({ login, name, password }) {
    return fetch(regURL, {

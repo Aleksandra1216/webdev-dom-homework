@@ -1,4 +1,4 @@
-import { registration, setToken, setUserName, token } from "./api.js";
+import { registration, setToken, setUserName } from "./api.js";
 import { renderLogin } from "./loginPage.js";
 import { getRenderComments } from "./main.js";
 import { renderComments } from "./renderComments.js";
@@ -43,11 +43,13 @@ export const renderReg = () => {
             login: loginInputElement.value,
             password: passwordInputElement.value,
         }).then((responseData) => {
-            console.log(token);
+            // console.log(token);
             setToken(responseData.user.token);
             setUserName(responseData.user.name);
         }).then(() => {
-        getRenderComments ();
+        
+            renderComments();
+            getRenderComments ();
 
         })
     });

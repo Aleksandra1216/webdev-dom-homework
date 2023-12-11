@@ -1,7 +1,6 @@
 import { deleteComment, postApi, token, userName } from "./api.js";
 import { addLikeEventListeners } from "./like.js";
 import { renderLogin } from "./loginPage.js";
-//import { formatedDate, getRenderComments } from "./main.js";
 import { getRenderComments } from "./main.js";
 // import { formatDateToRu, formatDateToUs } from "./lib/formatDate/formatDate.js";
 import { format } from "date-fns";
@@ -100,9 +99,7 @@ function addCommentForm () {
       postApi({
         text: textInput.value,
         name: nameInput.value,
-        //  date: formatedDate
-        // date: country === "ru" ? formatDateToRu(new Date( postApi)) : formatDateToUs(new Date( postApi)),
-         date: new Date(),
+        date: new Date(),
       }).then(() => {
         return getRenderComments({ comments });
       })
