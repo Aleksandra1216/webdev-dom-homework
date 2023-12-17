@@ -4,7 +4,6 @@ import { renderComments } from "./renderComments.js";
 import { format } from "date-fns";
 
 
-
 export let comments = [];
 
 export const getRenderComments = () => {

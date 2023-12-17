@@ -8,6 +8,7 @@ export const setUserName = (newUserName) => {
   userName = newUserName;
 };
 
+
 export let token;
 export const setToken = (newToken) => {
    token = newToken;

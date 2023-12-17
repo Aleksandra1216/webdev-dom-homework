@@ -2,7 +2,6 @@ import { toggleLike } from "./api.js";
 import { comments, getRenderComments } from "./main.js";
 
 
-
 export function addLikeEventListeners() {
   const likeButtons = document.querySelectorAll(".like-button");
   likeButtons.forEach((likeButton, index) => {

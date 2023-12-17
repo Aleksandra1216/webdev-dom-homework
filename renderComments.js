@@ -5,6 +5,7 @@ import { getRenderComments } from "./main.js";
 // import { formatDateToRu, formatDateToUs } from "./lib/formatDate/formatDate.js";
 import { format } from "date-fns";
 
+
 export const renderComments = ({ comments }) => {
   const appHTML = document.getElementById("app");
   const country = "ru";

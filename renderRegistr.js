@@ -4,7 +4,6 @@ import { getRenderComments } from "./main.js";
 import { renderComments } from "./renderComments.js";
 
 
-
 export const renderReg = () => {
     const appElement = document.getElementById("app");
 

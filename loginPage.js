@@ -2,7 +2,6 @@ import { login, setToken, setUserName, token, userName } from "./api.js"
 import { getRenderComments } from "./main.js";
 
 
-
 export const renderLogin = () => {
     const appElement = document.getElementById("app");
     const loginHtml = `
