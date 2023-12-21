@@ -27,4 +27,3 @@ const country = "ru";
   });
 };
 getRenderComments();
-

@@ -1,5 +1,5 @@
 const baseURL = "https://wedev-api.sky.pro/api/v2/Aleksandra1216/comments";
-const deleteURL = "https://wedev-api.sky.pro/api/v2/Aleksandra1216/comments/"
+const deleteURL = "https://wedev-api.sky.pro/api/v2/Aleksandra1216/comments/";
 const authorizURL = "https://wedev-api.sky.pro/api/user/login";
 const regURL = "https://wedev-api.sky.pro/api/user";
 
