@@ -10,6 +10,7 @@ export const renderComments = ({ comments }) => {
   const appHTML = document.getElementById("app");
   const country = "ru";
   const commentsHtml = comments.map((comment, index) => {
+    console.log(new Date(comment.date));
     const createDate = format(new Date(comment.date), 'dd-MM-yyyy HH:mm');
     return `<li class="comment">
         <div class="comment-header">

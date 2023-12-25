@@ -12,11 +12,12 @@ const country = "ru";
   getComments().then((responseData) => {
     comments = responseData.comments.map((comment) => {
       // const apiDate = comment.date;
-      const createDate = format(new Date(comment.date), 'dd-MM-yyyy HH:mm');
+    //   const createDate = format(new Date(comment.date), 'dd-MM-yyyy HH:mm');
       return {
         id: comment.id,
         name: comment.author.name,
-       date: new Date (createDate),
+    //    date: new Date (createDate),
+    date: comment.date,
         text: comment.text,
         likes: comment.likes,
         isLiked: comment.isLiked,
